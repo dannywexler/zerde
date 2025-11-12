@@ -1,7 +1,7 @@
 import { fromThrowable } from "neverthrow"
 
 import type { ParseJSONOptions } from "./formats/json"
-import { defaultJSONParseOptions, parseJSON } from "./formats/json"
+import { defaultParseJSONOptions, parseJSON } from "./formats/json"
 import { EnhancedError, extractFormatSuffix } from "./utils"
 
 export class ParseError extends EnhancedError {}
@@ -11,7 +11,7 @@ export type ParseOptions = {
 }
 
 export const defaultParseOptions = {
-    json: defaultJSONParseOptions,
+    json: defaultParseJSONOptions,
 } as const satisfies ParseOptions
 
 export const parseIt = fromThrowable(

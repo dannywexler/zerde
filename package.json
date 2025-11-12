@@ -45,6 +45,7 @@
     "dependencies": {
         "@standard-schema/spec": "^1.0.0",
         "jsonc-parser": "^3.3.1",
-        "neverthrow": "^8.2.0"
+        "neverthrow": "^8.2.0",
+        "safe-stable-stringify": "^2.5.0"
     }
 }

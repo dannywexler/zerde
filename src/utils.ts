@@ -12,7 +12,7 @@ export class EnhancedError<T = unknown> extends Error {
 const endSymbols = [".", "/", "\\", "+"]
 
 export function extractFormatSuffix(format: string) {
-    let suffix = format.trim()
+    let suffix = format.trim().toLowerCase()
     if (!suffix) {
         return suffix
     }
@@ -34,7 +34,10 @@ if (import.meta.vitest) {
     const { describe, it, expect } = import.meta.vitest
 
     const cases = {
-        simple: "json",
+        lowercase: "json",
+        uppercase: "JSON",
+        mixedcase: "jSoN",
+        extension: ".json",
         file: "file.json",
         "file with path": "some/path/to/file.json",
         "file with a windows path": "some\\path\\to\\file.json",
