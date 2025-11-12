@@ -1,6 +1,6 @@
 {
     "name": "zerde",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "parsing, and stringifying combined with schema validation",
     "keywords": [
         "parse",
@@ -9,7 +9,10 @@
         "validation",
         "schema"
     ],
-    "repository": "github:dannywexler/zerde",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dannywexler/zerde.git"
+    },
     "author": "Danny Wexler",
     "license": "MIT",
     "type": "module",
