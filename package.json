@@ -1,11 +1,15 @@
 {
-    "name": "PACKAGE_NAME",
+    "name": "zerde",
     "version": "0.1.0",
-    "description": "DESCRIBE PACKAGE",
+    "description": "parsing, and stringifying combined with schema validation",
     "keywords": [
-        "ADD KEYWORDS"
+        "parse",
+        "stringify",
+        "validate",
+        "validation",
+        "schema"
     ],
-    "repository": "github:dannywexler/PACKAGE_NAME",
+    "repository": "github:dannywexler/zerde",
     "author": "Danny Wexler",
     "license": "MIT",
     "type": "module",
@@ -37,5 +41,10 @@
         "lint": "biome check --error-on-warnings --colors=force --write src",
         "test": "vitest run",
         "test:watch": "vitest"
+    },
+    "dependencies": {
+        "@standard-schema/spec": "^1.0.0",
+        "jsonc-parser": "^3.3.1",
+        "neverthrow": "^8.2.0"
     }
 }
