@@ -3,27 +3,31 @@
 Typescript library for parsing and stringifying combined with schema validationg
 
 When stringifying or parsing an object, you want to verify that what you are stringifying or parsing matches a schema.
+
 This is the overall workflow:
+
 Parsing: stringifiedContent -> parse -> SomeObject
+
 Stringifying: SomeObject -> stringify -> stringifiedContent
 
 However, all type safety is lost during these steps (especially during the parse step)
 
 The desired workflow:
 
-Parsing: stringifiedContent<SomeType> -> parse -> Unknown -> validateIsSomeType -> SomeType
-Stringifying: SomeType -> validateIsSomeType -> stringify -> stringifiedContent<SomeType>
+Parsing: stringifiedContent\<SomeType\> -> parse -> Unknown -> validateIsSomeType -> SomeType
+
+Stringifying: SomeType -> validateIsSomeType -> stringify -> stringifiedContent\<SomeType\>
 
 This way, you are able to parse some unknown string into a strongly typed result, and ensure that the object you are about to stringify matches the intended schema
 
-The next step is each `parse`/`stringify` function is specific to one format. `JSON.parse`/`JSON.stringify` only handles `JSON`. What if you need to parse/stringify some other format? Import another library.
+However, each `parse`/`stringify` function is specific to one format. `JSON.parse`/`JSON.stringify` only handles `JSON`. What if you need to parse/stringify some other format? Import another library.
 
 This library provides a unified way to parse, stringify and validate:
 
-[x] JSON
-[] YAML (coming soon)
-[] TOML (coming soon)
-[] CSV (coming soon)
+- [x] JSON
+- [] YAML (coming soon)
+- [] TOML (coming soon)
+- [] CSV (coming soon)
 
 Makes use of [Standard Schema](https://github.com/standard-schema/standard-schema) to support all the popular schema libraries (Zod, Valibot, etc).
 
@@ -97,7 +101,7 @@ Handles a wide variety of string cases:
 | media type with charset | "application/customFormat+json; charset=utf-8" |
 
 
-When calling `zparse`, if the unknownContent was not a string, or if no format is specified, or if the specified format is not supported, `zparse` will not modify the passed in content before validating it. So if you know you are parsing a `JSON.stringify`-ed string, pass `JSON` as the 3rd arg to `zparse`
+When calling `zparse`, if the unknownContent was not a string, or if no format is specified, or if the specified format is not supported, `zparse` will not modify the passed in content before validating it. So if you know you are parsing a `JSON.stringify`-ed string, pass `JSON` as the 3rd arg to `zparse`.
 
 When calling `zstringify`, if no format is specified, or if the specified format is not supported, `zparse` fall back to assuming the format was `JSON`.
 

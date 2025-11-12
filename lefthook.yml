@@ -8,7 +8,7 @@ lint:
   jobs:
     - &LINT
       name: "Lint "
-      run: "{nm}biome check --error-on-warnings --colors=force --write --staged"
+      run: "{nm}biome check --error-on-warnings --colors=force --write src"
       stage_fixed: true
 
 test:
