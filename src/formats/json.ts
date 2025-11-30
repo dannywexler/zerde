@@ -38,7 +38,7 @@ export const defaultStringifyJSONOptions =
 
 const configuredStringify = configure({
     bigint: false,
-    circularValue: SyntaxError,
+    circularValue: TypeError,
     deterministic: true,
     strict: true,
 })
