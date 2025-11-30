@@ -1,5 +1,6 @@
 export type { ParseOptions } from "./parse"
 export { defaultParseOptions, ParseError, parseIt } from "./parse"
+export { parseString, type StringSchema } from "./schema"
 export type { StringifyOptions } from "./stringify"
 export {
     defaultStringifyOptions,

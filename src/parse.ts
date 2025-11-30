@@ -2,12 +2,14 @@ import { fromThrowable } from "neverthrow"
 
 import type { ParseJSONOptions } from "./formats/json"
 import { defaultParseJSONOptions, parseJSON } from "./formats/json"
+import { objectKeys } from "./typeHelpers"
 import { EnhancedError, extractFormatSuffix } from "./utils"
 
 export class ParseError extends EnhancedError {}
 
 export type ParseOptions = {
     json: ParseJSONOptions
+    format?: string
 }
 
 export const defaultParseOptions = {
@@ -15,12 +17,10 @@ export const defaultParseOptions = {
 } as const satisfies ParseOptions
 
 export const parseIt = fromThrowable(
-    (
-        stringifiedContent: string,
-        formatAndParseOptions: Partial<ParseOptions & { format: string }>,
-    ) => {
-        const { format, ...otherOptions } = formatAndParseOptions
-        const suffix = extractFormatSuffix(format ?? "")
+    (stringifiedContent: string, parseOptions: ParseOptions) => {
+        const { format, ...otherOptions } = parseOptions
+        const fallbackFormat = objectKeys(otherOptions).sort().at(0) ?? ""
+        const suffix = extractFormatSuffix(format ?? fallbackFormat)
         if (suffix === "json") {
             return parseJSON(stringifiedContent, otherOptions.json)
         }

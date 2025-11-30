@@ -21,7 +21,7 @@ export const validateIt = ResultAsync.fromThrowable(
         if (result.issues) {
             throw new ValidationError(result.issues)
         }
-        return result.value
+        return result.value as StandardSchemaV1.InferOutput<Schema>
     },
     (e) => e as ValidationError,
 )
