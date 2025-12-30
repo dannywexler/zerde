@@ -7,22 +7,18 @@ import { configure } from "safe-stable-stringify"
 export type ParseJSONOptions = Partial<ParseOptions>
 
 export const defaultParseJSONOptions = {
-    allowEmptyContent: true,
-    allowTrailingComma: true,
+    allowEmptyContent: false,
+    allowTrailingComma: false,
     disallowComments: true,
-} as const satisfies ParseJSONOptions
+} satisfies ParseJSONOptions
 
 export function parseJSON(
     stringifiedContent: string,
     parseOptions: ParseJSONOptions = {},
-) {
+): unknown {
     const mergedOptions = { ...parseOptions, ...defaultParseJSONOptions }
     const errors: Array<ParseError> = []
-    const unknownContent: unknown = parse(
-        stringifiedContent,
-        errors,
-        mergedOptions,
-    )
+    const unknownContent = parse(stringifiedContent, errors, mergedOptions)
     if (errors.length > 0) {
         throw new SyntaxError("Could not parse JSON", { cause: errors })
     }

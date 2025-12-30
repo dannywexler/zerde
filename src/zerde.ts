@@ -12,17 +12,21 @@ export type ZerdeOptions = Partial<{
 }>
 
 export class Zerde {
-    parseOptions = defaultParseOptions
-    stringifyOptions = defaultStringifyOptions
+    parseOptions: ParseOptions
+    stringifyOptions: StringifyOptions
 
     constructor(options: ZerdeOptions = {}) {
-        this.parseOptions = { ...options.parse, ...defaultParseOptions }
+        this.parseOptions = { ...defaultParseOptions, ...options.parse }
+        this.stringifyOptions = {
+            ...defaultStringifyOptions,
+            ...options.stringify,
+        }
     }
 
     parse = <Schema extends StandardSchemaV1>(
         unknownContent: unknown,
         schema: Schema,
-        parseOptions?: string | Partial<ParseOptions>,
+        parseOptions?: string | ParseOptions,
     ) => {
         if (typeof unknownContent === "string") {
             const parseOpts =
@@ -41,7 +45,7 @@ export class Zerde {
     stringify = <Schema extends StandardSchemaV1>(
         unknownContent: unknown,
         schema: Schema,
-        stringifyOptions?: string | Partial<StringifyOptions>,
+        stringifyOptions?: string | StringifyOptions,
     ) => {
         const stringifyOpts =
             typeof stringifyOptions === "string"
