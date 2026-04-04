@@ -17,7 +17,7 @@ export type ParseYAMLOptions = DocumentOptions &
 
 export function parseYAML(
     stringifiedContent: string,
-    parseOptions: ParseYAMLOptions = {},
+    parseOptions?: ParseYAMLOptions,
 ): unknown {
     return parse(stringifiedContent, parseOptions)
 }
@@ -32,7 +32,7 @@ export type StringifyYAMLOptions = CreateNodeOptions &
 
 export function stringifyYAML(
     unknownContent: unknown,
-    stringifyOptions: StringifyYAMLOptions = {},
+    stringifyOptions?: StringifyYAMLOptions,
 ) {
     return stringify(unknownContent, {
         sortMapEntries: true,

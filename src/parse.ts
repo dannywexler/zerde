@@ -7,7 +7,13 @@ import { parseYAML } from "./formats/yaml"
 import { objectKeys } from "./typeHelpers"
 import { EnhancedError, extractFormatSuffix } from "./utils"
 
-export class ParseError extends EnhancedError {}
+export class ParseError extends EnhancedError {
+    readonly tag = "ParseError"
+    constructor(cause: unknown) {
+        super("Could not parse content", { cause })
+        this.name = "ParseError"
+    }
+}
 
 export type ParseOptions = Partial<{
     json: ParseJSONOptions
@@ -33,5 +39,5 @@ export const parseIt = fromThrowable(
         }
         return stringifiedContent
     },
-    (e) => new ParseError("Could not parse content", { cause: e }),
+    (e) => new ParseError(e),
 )

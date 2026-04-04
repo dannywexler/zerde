@@ -14,9 +14,9 @@ export const defaultParseJSONOptions = {
 
 export function parseJSON(
     stringifiedContent: string,
-    parseOptions: ParseJSONOptions = {},
+    parseOptions?: ParseJSONOptions,
 ): unknown {
-    const mergedOptions = { ...parseOptions, ...defaultParseJSONOptions }
+    const mergedOptions = { ...defaultParseJSONOptions, ...parseOptions }
     const errors: Array<ParseError> = []
     const unknownContent = parse(stringifiedContent, errors, mergedOptions)
     if (errors.length > 0) {

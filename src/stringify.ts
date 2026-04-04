@@ -6,7 +6,13 @@ import type { StringifyYAMLOptions } from "./formats/yaml"
 import { stringifyYAML } from "./formats/yaml"
 import { EnhancedError, extractFormatSuffix } from "./utils"
 
-export class StringifyError extends EnhancedError {}
+export class StringifyError extends EnhancedError {
+    readonly tag = "StringifyError"
+    constructor(cause: unknown) {
+        super("Could not stringify content", { cause })
+        this.name = "StringifyError"
+    }
+}
 
 export type StringifyOptions = Partial<{
     json: StringifyJSONOptions
@@ -36,5 +42,5 @@ export const stringifyIt = fromThrowable(
         // default to JSON stringify if unknown suffix
         return stringifyJSON(unknownContent, otherOptions.json)
     },
-    (e) => new StringifyError("Could not stringify content", { cause: e }),
+    (e) => new StringifyError(e),
 )
