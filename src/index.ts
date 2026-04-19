@@ -1,7 +1,9 @@
 export type { StandardSchemaV1 } from "@standard-schema/spec"
+export { type ErrorLike, isErrorLike, serializeError } from "serialize-error"
 
 export * from "./formats/json"
 export * from "./formats/yaml"
+export * from "./hashing"
 export * from "./parse"
 export * from "./schema"
 export * from "./stringify"
