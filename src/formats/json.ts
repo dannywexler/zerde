@@ -1,6 +1,7 @@
 import type { ParseError, ParseOptions } from "jsonc-parser"
 import { parse } from "jsonc-parser"
 import { configure } from "safe-stable-stringify"
+import { serializeError } from "serialize-error"
 
 // -------------- PARSE --------------
 
@@ -16,13 +17,17 @@ export function parseJSON(
     stringifiedContent: string,
     parseOptions?: ParseJSONOptions,
 ): unknown {
-    const mergedOptions = { ...defaultParseJSONOptions, ...parseOptions }
-    const errors: Array<ParseError> = []
-    const unknownContent = parse(stringifiedContent, errors, mergedOptions)
-    if (errors.length > 0) {
-        throw new SyntaxError("Could not parse JSON", { cause: errors })
+    try {
+        return JSON.parse(stringifiedContent)
+    } catch {
+        const mergedOptions = { ...defaultParseJSONOptions, ...parseOptions }
+        const errors: Array<ParseError> = []
+        const unknownContent = parse(stringifiedContent, errors, mergedOptions)
+        if (errors.length > 0) {
+            throw new SyntaxError("Could not parse JSON", { cause: errors })
+        }
+        return unknownContent
     }
-    return unknownContent
 }
 
 // -------------- STRINGIFY --------------
@@ -43,7 +48,10 @@ export function stringifyJSON(
     unknownContent: unknown,
     stringifyOptions?: StringifyJSONOptions,
 ) {
-    const res = configuredStringify(unknownContent, null, stringifyOptions)
+    const content = Error.isError(unknownContent)
+        ? serializeError(unknownContent)
+        : unknownContent
+    const res = configuredStringify(content, null, stringifyOptions)
     if (res === undefined) {
         throw new SyntaxError(
             "safe-stable-stringify should have thrown an error if trying to stringify an invalid json object",

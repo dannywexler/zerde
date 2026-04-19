@@ -1,6 +1,6 @@
 {
     "name": "zerde",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "parsing, and stringifying combined with schema validation",
     "keywords": [
         "parse",
@@ -44,10 +44,11 @@
         "test:watch": "vitest"
     },
     "dependencies": {
-        "@standard-schema/spec": "^1.0.0",
+        "@standard-schema/spec": "^1.1.0",
         "jsonc-parser": "^3.3.1",
         "neverthrow": "^8.2.0",
         "safe-stable-stringify": "^2.5.0",
-        "yaml": "^2.8.2"
+        "serialize-error": "^13.0.1",
+        "yaml": "^2.8.3"
     }
 }
